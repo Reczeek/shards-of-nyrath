@@ -1,0 +1,87 @@
+:root {
+    --bg: #0a0a0f;
+    --bg2: #12121a;
+    --border: #2a2a3a;
+    --neon-cyan: #00f5ff;
+    --neon-purple: #bf00ff;
+    --neon-gold: #ffd700;
+    --neon-red: #ff003c;
+    --text: #e0e0e0;
+    --text-dim: #666680;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Courier New', monospace;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#app {
+    width: 1000vw;
+    height: 700vh;
+    background-color: var(--bg2);
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+}
+
+.screen {
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+
+.screen.active {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-title {
+    font-size: 4rem;
+    color: var(--neon-cyan);
+    text-shadow: 0 0 20px var(--neon-cyan);
+    margin-bottom: 10px;
+}
+
+.game-subtitle {
+    font-size: 1.5rem;
+    color: var(--text-dim);
+    margin-bottom: 60px;
+    letter-spacing: 4px;
+}
+
+.menu-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.menu-buttons button {
+    background-color: transparent;
+    border: 1px solid var(--neon-cyan);
+    color: var(--neon-cyan);
+    font-family: inherit;
+    font-size: 1rem;
+    padding: 12px 40px;
+    cursor: pointer;
+    letter-spacing: 2px;
+    transition: all 0.2s;
+}
+
+.menu-buttons button:hover {
+    background-color: var(--neon-cyan);
+    color: var(--bg);
+    box-shadow: 0 0 20px var(--neon-cyan);
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shards of Nyrath</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="app">
+        <!-- MENU -->
+        <div id="screen-menu" class="screen active">
+            <h1 class="game-title">Shards of Nyrath</h1>
+            <p class="game-subtitle">Powrót do Boskości</p>
+            <div class="menu-buttons">
+                <button id="btn-newgame">Nowa Gra</button>
+                <button id="btn-continue">Kontynuuj</button>
+                <button id="btn-meta">Okruchy Boskości</button>
+            </div>
+        </div>
+
+        <div id="screen-class" class="screen">
+            <div id="class-list"></div>
+            <h2 class="screen-title">Wybierz Aspekt</h2>
+            <div id="class-list"></div>
+            <p class="class-description" id="class-description">Najedź na aspekt aby zobaczyć opis.</p>
+        </div>
+
+        <!-- GRA -->
+        <div id="screen-game" class="screen">
+        </div>
+    </div>
+
+    <script src="js/data/classes.js"></script>
+    <script src="js/data/items.js"></script>
+    <script src="js/data/bosses.js"></script>
+    <script src="js/data/events.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/enemies.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/combat.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
