@@ -41,11 +41,29 @@ body {
     height: 100%;
 }
 
+.screen-title {
+    font-size: 3rem;
+    color: var(--neon-cyan);
+    text-align: center;
+    margin-bottom: 10px;
+    letter-spacing: 3px;
+}
+
+.screen-subtitle {
+    font-size: 1.5rem;
+    color: var(--neon-cyan);
+    text-align: center;
+    margin-bottom: 40px;
+    letter-spacing: 2px;
+}
+
 .screen.active {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    overflow-y: auto;
+    padding: 40px 20px;
 }
 
 .game-title {
@@ -108,3 +126,61 @@ body {
         transform: translateY(0);
     }
 }
+
+#class-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    max-width: 900px;
+    max-height: 70vh;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.class-card {
+    background-color: var(--bg);
+    border-color: 1px solid var(--border);
+    padding: 20px;
+    width: 200px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+}
+
+.class-card:hover {
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 15px var(--neon-cyan);
+    transform: translateY(-3px);
+}
+
+.class-card.locked {
+    opacity: 0.4;
+    cursor: not-allowed;
+    filter: grayscale(100%);
+}
+
+.class-card.locked:hover {
+    border-color: var(--border);
+    box-shadow: none;
+    transform: none;
+}
+
+.class-icon {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.class-name {
+    color: var(--neon-cyan);
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+}
+
+.class-desc {
+    color: var(--text-dim);
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
