@@ -53,6 +53,7 @@ body {
     color: var(--neon-cyan);
     text-shadow: 0 0 20px var(--neon-cyan);
     margin-bottom: 10px;
+    animation: titleGlow 2s ease-in-out infinite alternate;
 }
 
 .game-subtitle {
@@ -78,10 +79,32 @@ body {
     cursor: pointer;
     letter-spacing: 2px;
     transition: all 0.2s;
+    animation: fadeInUp 0.5s ease forwards;
+    opacity: 0;
 }
 
 .menu-buttons button:hover {
     background-color: var(--neon-cyan);
     color: var(--bg);
     box-shadow: 0 0 20px var(--neon-cyan);
+}
+
+@keyframes titleGlow {
+    from {
+        text-shadow: 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan);
+    }
+    to {
+        text-shadow: 0 0 40px var(--neon-cyan), 0 0 80px var(--neon-cyan), 0 0 120px var(--neon-cyan);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
