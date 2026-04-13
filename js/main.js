@@ -30,10 +30,23 @@ function renderClasses() {
 }
 
 function selectClass(cls) {
-    console.log('Selected class:', cls.name);
+    gameState.player = createPlayer(cls);
     showScreen('screen-game');
+    updateHud();
+    startGame();
 }
 
 document.getElementById('btn-back-menu').addEventListener('click', () => {
     showScreen('screen-menu');
 });
+
+function updateHud() {
+    const p = gameState.player;
+    document.getElementById('hud-class-icon').innerHTML = p.classIcon;
+    document.getElementById('hud-class-name').innerHTML = p.className;
+    document.getElementById('hud-hp-text').innerHTML = p.hp + ' / ' + p.maxHp;
+    document.getElementById('hud-hp-fill').style.width = (p.hp / p.maxHp * 100) + '%';
+    document.getElementById('hud-floor').innerHTML = 'Piętro ' + gameState.floor;
+    document.getElementById('hud-gold').innerHTML = '✦ ' + p.gold;
+    document.getElementById('hud-level').innerHTML = 'Poziom ' + p.level;
+}
