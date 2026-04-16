@@ -26,7 +26,7 @@ function renderClasses() {
             });
         }
         list.appendChild(card);
-    })
+    });
 }
 
 function selectClass(cls) {

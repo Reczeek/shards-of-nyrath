@@ -1,25 +1,22 @@
 function generateFloor(floor) {
-    const rooms = [];
-    const rows = 8;
+    const size = 15;
+    const grid = [];
 
-    for (let y = 0; y < rows; y++) {
-        rooms[y] = [];
-
-        for (let x = 0; x < 4; x++) {
-            rooms[y][x] = {
-                type: 'combat',
-                visited: false,
-                connections: []
-            };
+    for (let y = 0; y < size; y++) {
+        grid[y] = [];
+        for (let x = 0; x < size; x++) {
+            grid[y][x] = { type: 'wall' };
         }
     }
 
-    return {
-        rooms,
-        rows,
-        currentY: 0,
-        currentX: 0
-    };
+
+    for (let y = 5; y < 10; y++) {
+        for (let x = 5; x < 10; x++) {
+            grid[y][x] = { type: 'floor' };
+        }
+    }
+
+    return { grid, size, playerX: 7, playerY: 7 };
 }
 
 function renderMap() {
