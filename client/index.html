@@ -1,46 +1,62 @@
 <!doctype html>
 <html lang="pl">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Shards of Nyrath</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shards of Nyrath</title>
+  <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
-    <h1>Shards of Nyrath</h1>
+  <h1>Shards of Nyrath</h1>
 
-    <div>
-        <button id="continue">Kontynuuj</button>
-        <button id="new-game">Nowa gra</button>
-            <div id="class-select" style="display:none; margin-top:12px;">
-                <p>Wybierz aspekt:</p>
-                <button data-class="war">⚔️ Aspekt Wojny</button>
-                <button data-class="dark">🌑 Aspekt Mroku</button>
-            </div>
-        <button id="reset-run" style="display:none;">Usuń aktywny run</button>
+  <div id="main-menu" class="main-menu">
+  <h1 class="game-title">Shards of Nyrath</h1>
+
+  <div class="menu-buttons">
+    <button id="continue">Kontynuuj</button>
+    <button id="new-game">Nowa gra</button>
+    <button id="reset-run" style="display:none;">Skończ obecny run</button>
+  </div>
+
+  <div id="class-select" style="display:none; margin-top:12px;">
+    <p>Wybierz aspekt:</p>
+    <button data-class="war">⚔️ Aspekt Wojny</button>
+    <button data-class="dark">🌑 Aspekt Mroku</button>
+  </div>
+</div>
+    <button id="reset-run" style="display:none;">Skończ obecny run</button>
+  </div>
+
+  <div class="container">
+    <div id="status-panel" class="panel">
+      <h2>Status</h2>
+      <div id="floor-info"></div>
+      <div id="room-info"></div>
     </div>
 
-    <div id="gameplay">
-        <h3 id="floor-info"></h3>
-        <p id="room-info"></p>
-        <div id="choices"></div>
-        <p id="action-log"></p>
-
+    <div id="actions-panel" class="panel">
+      <h2>Akcje</h2>
+      <div id="choices" class="row"></div>
+      <div id="combat-actions" class="row"></div>
     </div>
 
-    <pre id="debug"></pre>
-
-        <div id="levelup-panel" style="display: none;">
-            <p id="unspent-info">Liczba dostęnych punktów statystyk: ${run.unspentStatPoints}</p>
-            <button data-stat="VIT">+ VIT</button>
-            <button data-stat="STR">+ STR</button>
-            <button data-stat="DEF">+ DEF</button>
-            <button data-stat="AGI">+ AGI</button>
-            <button data-stat="INT">+ INT</button>
-        </div>
+    <div class="panel">
+      <h2>Log</h2>
+      <div id="action-log"></div>
     </div>
+  </div>
 
-    <div id="debug"></div>
+  <div id="levelup-panel" style="display:none;">
+    <p id="unspent-info"></p>
+    <button data-stat="VIT">+ VIT</button>
+    <button data-stat="STR">+ STR</button>
+    <button data-stat="DEF">+ DEF</button>
+    <button data-stat="AGI">+ AGI</button>
+    <button data-stat="INT">+ INT</button>
+  </div>
 
-    <script type="module" src="./main.js"></script>
+  <pre id="debug"></pre>
+
+  <script type="module" src="./main.js"></script>
 </body>
 </html>

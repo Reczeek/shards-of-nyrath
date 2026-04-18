@@ -1,4 +1,6 @@
-import { randInt } from "./utils.js";
+export function randInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 const MAX_GAUGE = 100;
 const TICK_MS = 100;
@@ -79,7 +81,8 @@ export function createBattleState(run, options = {}) {
       def: run.def ?? 6,
       agi: run.agi ?? 10,
       gauge: 0,
-      canAct: false
+      canAct: false,
+      skillUsesLeft: 2,
     },
     enemies,
     pendingEnemyActionId: null,
@@ -205,4 +208,35 @@ export function finalizeBattleToRun(run, state) {
     goldGain: 0,
     hpAfter: run.hp
   };
+}
+
+export function playerSkill(state, targetId) {
+  if (!state.active || !state.player.canAct) return state;
+  if ((state.player.skillUsesLeft ?? 0) <= 0) return state;
+
+  const target = state.enemies.find(e => e.id === targetId && e.alive);
+  if (!target) return state;
+
+  const qte = rollQte();
+  const mult = qteAttackMultiplier(qte);
+
+  const raw = Math.max(1, Math.floor(state.player.atk * 1.6) - target.def + randInt(-1, 4));
+  const dmg = Math.max(1, Math.floor(raw * mult));
+
+  target.hp = Math.max(0, target.hp - dmg);
+  if (target.hp <= 0) target.alive = false;
+
+  state.player.skillUsesLeft -= 1;
+  state.log.push(`Skill (${qte}): -${dmg} HP ${target.name} | Pozostało użyć: ${state.player.skillUsesLeft}`);
+
+  state.player.gauge = 0;
+  state.player.canAct = false;
+
+  const livingEnemies = state.enemies.filter(e => e.alive);
+  if (livingEnemies.length === 0) {
+    state.active = false;
+    state.winner = "player";
+  }
+
+  return state;
 }

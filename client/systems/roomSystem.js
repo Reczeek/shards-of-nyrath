@@ -1,4 +1,4 @@
-
+import { randInt } from "./combatSystem.js";
 
 function weightedPick(weights) {
   const entries = Object.entries(weights);
