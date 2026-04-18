@@ -20,9 +20,23 @@
         <p id="room-info"></p>
         <div id="choices"></div>
         <p id="action-log"></p>
+
     </div>
 
     <pre id="debug"></pre>
+
+        <div id="levelup-panel" style="display: none;">
+            <p id="unspent-info">Liczba dostęnych punktów statystyk: ${run.unspentStatPoints}</p>
+            <button data-stat="VIT">+ VIT</button>
+            <button data-stat="STR">+ STR</button>
+            <button data-stat="DEF">+ DEF</button>
+            <button data-stat="AGI">+ AGI</button>
+            <button data-stat="INT">+ INT</button>
+        </div>
+    </div>
+
+    <div id="debug"></div>
+ (System statystyk)
 
     <script type="module" src="./main.js"></script>
 </body>
