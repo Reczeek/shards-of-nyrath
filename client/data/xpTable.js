@@ -13,4 +13,3 @@ export function getLevelForXP(totalXp) {
   }
   return 1;
 }
- (System statystyk)

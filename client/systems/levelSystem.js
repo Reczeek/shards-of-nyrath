@@ -1,4 +1,3 @@
-
 export function addXP(amount){
   console.log('xp', amount);
 }
@@ -33,4 +32,4 @@ export function spendStatPoint(run, statKey) {
 	}
 	return true
 }
- (System statystyk)
+
