@@ -11,8 +11,8 @@ const floorInfoEl = document.getElementById("floor-info");
 const roomInfoEl = document.getElementById("room-info");
 const choicesEl = document.getElementById("choices");
 const actionLogEl = document.getElementById("action-log");
-const btnNewWar = document.getElementById("new-war");
-const btnNewDark = document.getElementById("new-dark");
+const btnNewGame = document.getElementById("new-game");
+const classSelectEl = document.getElementById("class-select");
 const btnContinue = document.getElementById("continue");
 const btnReset = document.getElementById("reset-run");
 
@@ -61,10 +61,14 @@ function startNewGame(classId) {
   run = createNewRun(classId);
   ensureRoomChoices(run);
   saveRun(run);
+  classSelectEl.style.display = "none";
   render();
 }
 
 function continueRun() {
+  btnContinue.style.display = "none";
+  btnNewGame.style.display = "none";
+  btnReset.style.display = "block";
   run = loadRun();
   if (!run) {
     alert("Brak aktywnego runa.");
@@ -76,6 +80,31 @@ function continueRun() {
 function resetRun() {
   clearRun();
   run = null;
+  render();
+}
+
+function openClassSelect() {
+  btnContinue.style.display = "none";
+  btnNewGame.style.display = "none";
+  classSelectEl.style.display = "block";
+  btnReset.style.display = "none";
+}
+
+function resetWholeGame() {
+  const ok = confirm("To usunie cały postęp (Okruchy, odblokowania, run). Kontynuować?");
+  if (!ok) return;
+
+  clearRun();
+  // jeśli masz clearMeta() użyj jej; jak nie:
+  meta = {
+    essence: 0,
+    bestFloor: 0,
+    unlockedClasses: ["war", "dark"] // albo Twoje domyślne
+  };
+  saveMeta(meta);
+
+  run = null;
+  actionLogEl.textContent = "Rozpoczęto NOWĄ GRĘ od zera.";
   render();
 }
 
@@ -122,10 +151,15 @@ function chooseRoom(room) {
 }
 
 
-btnNewWar.addEventListener("click", () => startNewGame("war"));
-btnNewDark.addEventListener("click", () => startNewGame("dark"));
 btnContinue.addEventListener("click", continueRun);
 btnReset.addEventListener("click", resetRun);
+btnNewGame?.addEventListener("click", openClassSelect);
+
+classSelectEl?.addEventListener("click", (e) => {
+  const btn = e.target.closest("button[data-class]");
+  if (!btn) return;
+  startNewGame(btn.dataset.class);
+});
 
 
 

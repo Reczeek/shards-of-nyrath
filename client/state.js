@@ -30,7 +30,7 @@ export function createNewRun(classId = "war") {
     className: preset.name,
 
     floor: STARTING.FLOOR,
-    roomIndex: STARTING.ROOM_INDEX, // 1..3
+    roomIndex: STARTING.ROOM_INDEX,
     isBossFloor: false,
 
     hp: preset.hp,

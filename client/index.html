@@ -9,9 +9,13 @@
     <h1>Shards of Nyrath</h1>
 
     <div>
-        <button id="new-war">Nowa gra (Wojna)</button>
-        <button id="new-dark">Nowa gra (Mrok)</button>
         <button id="continue">Kontynuuj</button>
+        <button id="new-game">Nowa gra</button>
+            <div id="class-select" style="display:none; margin-top:12px;">
+                <p>Wybierz aspekt:</p>
+                <button data-class="war">⚔️ Aspekt Wojny</button>
+                <button data-class="dark">🌑 Aspekt Mroku</button>
+            </div>
         <button id="reset-run">Usuń aktywny run</button>
     </div>
 
@@ -36,7 +40,6 @@
     </div>
 
     <div id="debug"></div>
- (System statystyk)
 
     <script type="module" src="./main.js"></script>
 </body>
