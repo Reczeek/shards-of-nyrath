@@ -1,9 +1,4 @@
-const ROOM_WEIGHTS = {
-  fight: 50,
-  event: 20,
-  treasure: 20,
-  shop: 10
-};
+
 
 function weightedPick(weights) {
   const entries = Object.entries(weights);
@@ -18,8 +13,13 @@ function weightedPick(weights) {
   return entries[entries.length - 1][0];
 }
 
-function pickRoomType() {
-  return weightedPick(ROOM_WEIGHTS);
+export function pickRoomType() {
+  const roll = randInt(1, 100);
+
+  if (roll <= 52) return "fight";
+  if (roll <= 74) return "event";
+  if (roll <= 92) return "treasure";
+  return "shop";
 }
 
 export function isBossFloor(floor) {
@@ -47,8 +47,38 @@ export function generateRoomChoices(run) {
     ];
   }
 
-  const choiceA = { type: pickRoomType(), id: crypto.randomUUID?.() ?? String(Date.now() + 1) };
-  const choiceB = { type: pickRoomType(), id: crypto.randomUUID?.() ?? String(Date.now() + 2) };
+  const mustOfferShop =
+    run.shopsSinceLast >= run.nextGuaranteedShopIn &&
+    !(bossFloor && isThirdRoom);
+
+  if (mustOfferShop) {
+    const nonShopPool = ["fight", "event", "treasure"];
+    const otherType = nonShopPool[randInt(0, nonShopPool.length - 1)];
+    const shopFirst = Math.random() < 0.5;
+
+    if (shopFirst) {
+      return [
+        { type: "shop", id: crypto.randomUUID?.() ?? String(Date.now() + 1) },
+        { type: otherType, id: crypto.randomUUID?.() ?? String(Date.now() + 2) }
+      ];
+    }
+
+    return [
+      { type: otherType, id: crypto.randomUUID?.() ?? String(Date.now() + 1) },
+      { type: "shop", id: crypto.randomUUID?.() ?? String(Date.now() + 2) }
+    ];
+  }
+
+  let typeA = pickRoomType();
+  let typeB = pickRoomType();
+
+  if (typeA === "shop" && typeB === "shop") {
+    const nonShopPool = ["fight", "event", "treasure"];
+    typeB = nonShopPool[randInt(0, nonShopPool.length - 1)];
+  }
+
+  const choiceA = { type: typeA, id: crypto.randomUUID?.() ?? String(Date.now() + 1) };
+  const choiceB = { type: typeB, id: crypto.randomUUID?.() ?? String(Date.now() + 2) };
 
   return [choiceA, choiceB];
 }

@@ -21,36 +21,30 @@ export function createDefaultMeta() {
   };
 }
 
-export function createNewRun(classId = "war") {
-  const preset = CLASS_PRESETS[classId] ?? CLASS_PRESETS.war;
-
+export function createNewRun(classId) {
   return {
-    startedAt: Date.now(),
     classId,
-    className: preset.name,
-
-    floor: STARTING.FLOOR,
-    roomIndex: STARTING.ROOM_INDEX,
+    floor: 1,
+    roomIndex: 1,
     isBossFloor: false,
-
-    hp: preset.hp,
-    maxHp: preset.hp,
-
-    xp: STARTING.XP,
-    level: STARTING.LEVEL,
-    gold: STARTING.GOLD,
-
-    stats: { ...preset.stats },
-
-    equipment: { weapon: null, armor: null, accessory: null },
-    consumables: [],
-    runPerks: [],
-
-    deathDefianceUsed: false,
-
-    currentRoomChoices: [],
-    flags: {
-      lastShopFloor: 0
-    }
+    currentRoomChoices: null,
+    lastResolvedRoom: null,
+    hp: 100,
+    maxHp: 100,
+    xp: 0,
+    gold: 0,
+    level: 1,
+    stats: {
+      unspent: 0,
+      vit: 0,
+      str: 0,
+      def: 0,
+      agi: 0,
+      int: 0
+    },
+    shopVisitedThisFloor: false,
+    shopsSinceLast: 0,
+    nextGuaranteedShopIn: 2,
+    combat: null,
   };
 }

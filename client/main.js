@@ -3,6 +3,13 @@ import { createNewRun } from "./state.js";
 import { loadRun, saveRun, clearRun, loadMeta, saveMeta } from "./storage.js";
 import { ensureRoomChoices, applyRoomChoice, isRunFinishedForStage1 } from "./systems/floorSystem.js";
 import { getRoomTypeLabel } from "./systems/roomSystem.js";
+import {
+  createBattleState,
+  stepBattle,
+  playerAttack,
+  resolveEnemyAction,
+  finalizeBattleToRun
+} from "./combat.js";
 
 import {checkAndApplyLevelUps, spendStatPoint} from "./systems/levelSystem.js";
 
@@ -62,6 +69,7 @@ function startNewGame(classId) {
   ensureRoomChoices(run);
   saveRun(run);
   classSelectEl.style.display = "none";
+  btnReset.style.display = "block";
   render();
 }
 
@@ -80,6 +88,7 @@ function continueRun() {
 function resetRun() {
   clearRun();
   run = null;
+  openClassSelect();
   render();
 }
 
@@ -123,9 +132,12 @@ function chooseRoom(room) {
     meta.bestFloor = Math.max(meta.bestFloor, run.floor);
     saveMeta(meta);
 
-    alert(`💀 Zginąłeś na piętrze ${run.floor}. Zdobyto +${essenceGain} Okruchów Boskości.`);
+    actionLogEl.textContent = `💀 Zginąłeś na piętrze ${run.floor}. Zdobyto +${essenceGain} Okruchów Boskości.`;
+
     clearRun();
     run = null;
+
+    openClassSelect()
     render();
     return;
   }

@@ -6,13 +6,14 @@ export function resolveRoom(run, room) {
     xpChange: 0
   };
 
+  const floorScale = Math.floor(run.floor * 0.6);
+
   switch (room.type) {
     case "fight": {
       const enemyStrength = Math.max(1, Math.floor(run.floor / 2));
-      const dmgTaken = randInt(4, 10) + enemyStrength;
-      const xp = randInt(12, 20) + enemyStrength * 2;
-      const gold = randInt(8, 16) + enemyStrength;
-
+      const dmgTaken = randInt(5, 11) + enemyStrength;                
+      const xp = randInt(10, 16) + floorScale + enemyStrength;          
+      const gold = randInt(8, 14) + floorScale;                       
       run.hp = Math.max(0, run.hp - dmgTaken);
       run.xp += xp;
       run.gold += gold;
@@ -27,18 +28,19 @@ export function resolveRoom(run, room) {
     case "event": {
       const roll = randInt(1, 100);
 
-      if (roll <= 35) {
-        const heal = randInt(8, 18);
+      // 30% heal, 35% gold, 35% trap (bardziej ryzykowne)
+      if (roll <= 30) {
+        const heal = randInt(6, 14);                                    
         run.hp = Math.min(run.maxHp, run.hp + heal);
         result.log = `❓ Event (łaska): +${heal} HP`;
         result.hpChange = heal;
-      } else if (roll <= 70) {
-        const gold = randInt(15, 35);
+      } else if (roll <= 65) {
+        const gold = randInt(10, 24) + Math.floor(run.floor * 0.4);   
         run.gold += gold;
         result.log = `❓ Event (znalezisko): +${gold} złota`;
         result.goldChange = gold;
       } else {
-        const dmg = randInt(6, 14);
+        const dmg = randInt(7, 15) + Math.floor(run.floor * 0.3);      
         run.hp = Math.max(0, run.hp - dmg);
         result.log = `❓ Event (pułapka): -${dmg} HP`;
         result.hpChange = -dmg;
@@ -47,8 +49,8 @@ export function resolveRoom(run, room) {
     }
 
     case "treasure": {
-      const gold = randInt(20, 45);
-      const heal = randInt(0, 12);
+      const gold = randInt(16, 32) + Math.floor(run.floor * 0.5);     
+      const heal = randInt(0, 8);                                         
 
       run.gold += gold;
       run.hp = Math.min(run.maxHp, run.hp + heal);
@@ -60,27 +62,28 @@ export function resolveRoom(run, room) {
     }
 
     case "shop": {
-      const cost = 25;
-      const heal = 30;
+        const cost = 30;
+        const heal = 26;
 
-      if (run.gold >= cost) {
-        run.gold -= cost;
-        const before = run.hp;
-        run.hp = Math.min(run.maxHp, run.hp + heal);
-        const realHeal = run.hp - before;
-        result.log = `🏪 Sklep: kupiono leczenie za ${cost} złota (+${realHeal} HP)`;
-        result.goldChange = -cost;
-        result.hpChange = realHeal;
-      } else {
-        result.log = `🏪 Sklep: za mało złota (potrzeba ${cost})`;
+        if (run.gold >= cost) {
+          run.gold -= cost;
+          const before = run.hp;
+          run.hp = Math.min(run.maxHp, run.hp + heal);
+          const realHeal = run.hp - before;
+
+          result.log = `🏪 Sklep: kupiono leczenie za ${cost} złota (+${realHeal} HP)`;
+          result.goldChange = -cost;
+          result.hpChange = realHeal;
+        } else {
+          result.log = `🏪 Sklep: brak złota na zakup (koszt ${cost}).`;
+        }
+        break;
       }
-      break;
-    }
 
     case "boss": {
-      const dmgTaken = randInt(14, 24) + Math.floor(run.floor / 3);
-      const xp = randInt(45, 70) + run.floor;
-      const gold = randInt(35, 60) + Math.floor(run.floor / 2);
+      const dmgTaken = randInt(16, 26) + Math.floor(run.floor / 3);       
+      const xp = randInt(36, 56) + run.floor;                             
+      const gold = randInt(28, 48) + Math.floor(run.floor / 2);
 
       run.hp = Math.max(0, run.hp - dmgTaken);
       run.xp += xp;
