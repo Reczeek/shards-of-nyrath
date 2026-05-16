@@ -57,7 +57,7 @@ index.html Main entry point
 
 1. Clone the repository:
 
-git clone https://github.com/your-username/shards-of-nyrath.git
+git clone https://github.com/Reczeek/shards-of-nyrath.git
 
 
 2. Open `index.html` in a browser.
