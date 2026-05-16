@@ -1,2 +1,65 @@
-/* main.css */
-body { margin:0; font-family: sans-serif; background:#000; color:#fff; }
+:root {
+    --neon-cyan: #00fff7;
+    --neon-purple: #651594;
+    --neon-blue: #2d7dff;
+    --neon-green: #39ff14;
+
+}
+
+body {
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+#title {
+    color: var(--neon-blue);
+    text-align: center;
+    font-size: 8rem;
+    letter-spacing: 2px;
+    animation: pulse 2.5s ease-in-out infinite;
+}
+
+#menu button {
+    color: var(--neon-cyan);
+    background-color: var(--neon-purple);
+    font-family: 'fantasy', cursive;
+    font-size: 25px;
+    justify-content: center;
+    width: 12rem;
+    height: 5rem;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.75;
+    text-shadow:
+      0 0 3px #2d7dff,
+      0 0 6px #2d7dff,
+      0 0 12px #2d7dff;
+  }
+
+  50% {
+    opacity: 1;
+    text-shadow:
+      0 0 5px #2d7dff,
+      0 0 10px #2d7dff,
+      0 0 18px #2d7dff;
+  }
+
+  100% {
+    opacity: 0.75;
+    text-shadow:
+      0 0 3px #2d7dff,
+      0 0 6px #2d7dff,
+      0 0 12px #2d7dff;
+  }
+}
